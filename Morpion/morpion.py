@@ -10,9 +10,15 @@ clear = lambda: os.system('cls')
 #Définir une conftion morpionTurnManager(board, symbol, coordinates) qui permet d'éditer un tableau de morpion avec un nouveau symbole
 def morpionTurnManager(board, symbol, coordinates):
 	#Initialiser un tableau 2D updatedBoard égal à board
-	updatedBoard = [[] * 3] * 3
+	updatedBoard = board
 	#Assigner à updatedBoard[coordinates[0], coordinates[1]] le caractère symbol
-	updatedBoard[coordinates[0], coordinates[1]] = symbol
+
+	print("~~~\n")
+	print(coordinates)
+	print(coordinates[0])
+	print(coordinates[1])
+
+	updatedBoard[coordinates[0]][coordinates[1]] = symbol
 	#Retourner updatedBoard
 	return updatedBoard
 
@@ -81,8 +87,8 @@ def morpionEndChecker(board):
 		if board[winnerSymbol[0]][winnerSymbol[1]] == 'O':
 			#Afficher "le Participant 1 à gagné"
 			print("Le participant 1 a gagné")
-		#Si board[winnerSymbol[0]][winnerSymbol[1]] est égal à 'X', Alors...
-		if board[winnerSymbol[0]][winnerSymbol[1]] == 'X':
+		#Sinon Si board[winnerSymbol[0]][winnerSymbol[1]] est égal à 'X', Alors...
+		elif board[winnerSymbol[0]][winnerSymbol[1]] == 'X':
 			#Afficher "le Participant 2 à gagné"
 			print("Le participant 1 a gagné")
 		#Retourner True
@@ -126,11 +132,11 @@ def morpionBlinkBoard(board):
 			#Si lighterBoard[x][y] est égal à 'O', Alors...
 			if lighterBoard[x][y] == 'O':
 				#Assigner à lighterBoard[x][y] le caractère '○'
-				lighterBoard[x][y] == '○'
+				lighterBoard[x][y] = '○'
 			#Sinon Si lighterBoard[x][y] est égal à 'X', Alors...
 			if lighterBoard[x][y] == 'X':
 				#Assigner à ligtherBoard[x][y] le caractère '×'
-				lighterBoard[x][y] == '×'
+				lighterBoard[x][y] = '×'
 	#Afficher "┌─┬─┬─┐"
 	print("┌─┬─┬─┐")
 	#Afficher "│" + str(board[0][0]) + "│" + str(board[0][1]) + "│" + str(board[0][2]) + "│"
@@ -148,43 +154,85 @@ def morpionBlinkBoard(board):
 
 
 
-
-
 #Définir une fonction morpionVsCpu() qui permet de jouer à une partie de morpion avec l'ordinateur
+def morpionVsCpu():
 	#Initialiser un tableau 2D board de format 3 par 3 avec uniquement des cases comportant ' '
+	board = [[' '] * 3] * 3
 	#Initialiser une variable turnOf avec le retour de randint(1, 2)
+	turnOf = randint(1, 2)
 	#Initialiser une variable gameOver à False
+	gameOver = False
 	#Initialiser une liste playerChoice à [None, None]
+	playerChoice = [None, None]
 	#Initialiser une liste cpuChoice à [None, None]
+	cpuChoice = [None, None]
 	#Initialiser une variable isValidChoice à False
+	isValidChoice = False
+
 	#Tant que gameOver est à False, Alors...
+	while not gameOver:
 		#Si turnOf est égal à 1, Alors...
+		if turnOf == 1:
 			#Vider l'écran de la console
+			clear()
 			#Afficher "C'est au tour du Joueur !"
+			print("C'est autour du Joueur !")
 			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Tant que isValidChoice est à False, Alors...
+			while not isValidChoice:
 				#Assigner à playerChoice[0] le retour de l'appel de la fonction input("Quel ligne visez-vous ? ")
+				playerChoice[0] = int(input("Quel ligne visez-vous ?"))
 				#Assigner à playerChoice[1] le retour de l'appel de la fonction input("Quel colonne visez-vous ? ")
+				playerChoice[1] = int(input("Quel colonne visez-vous ?"))
 				#Si playerChoice[0] ou playerChoice[1] ne sont pas compris entre 0 et 2, Alors...
+				if (playerChoice[0] < 0 or playerChoice[0] > 2) or (playerChoice[1] < 0 or playerChoice[1] > 2):
 					#Afficher un message d'erreur : la position n'est pas valide
+					print("     !! ERR !!\nLa position spécifié n'est pas valide...\n\n")
 				#Sinon Si board[playerChoice[0]][playerChoice[1]] est différent de ' ', Alors...
+				elif board[playerChoice[0]][playerChoice[1]] != ' ':
 					#Afficher un message d'erreur : la case est occupée
+					print("     !! ERR !!\nLa case spécifié est occupée...\n\n")
 				#Sinon : board[playerChoice[0]][playerChoice[1]] est égal à ' ', Alors...
+				else:
 					#Assigner à isValidChoice la valeur True
+					isValidChoice = True
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'O', playerChoice)
+			board = morpionTurnManager(board, 'O', playerChoice)
+			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Assigner à turnOf la valeur 2
+			turnOf = 2
+
 		#Sinon : turnOf est égal à 2, Alors...
+		else:
 			#Afficher "C'est au tour de l'Ordinateur !"
+			print("C'est au tour de l'Ordinateur !")
 			#Tant que isValidChoice est à False, Alors...
+			while not isValidChoice:
 				#Assigner à cpuChoice[0] le retour de l'appel de la fonction randint(0, 2)
+				cpuChoice[0] = randint(0, 2)
 				#Assigner à cpuChoice[1] le retour de l'appel de la fonction randint(0, 2)
+				cpuChoice[1] = randint(0, 2)
 				#Si board[cpuChoice[0]][cpuChoice[1]] est égal à ' ', Alors...
+				if board[cpuChoice[0]][cpuChoice[1]] == ' ':
 					#Assigner à isValidChoice la valeur True
+					isValidChoice = True
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', cpuChoice)
+			board = morpionTurnManager(board, 'X', cpuChoice)
+			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Assigner à turnOf la valeur 1
+			turnOf = 1
 		#Assigner à isValidChoice la valeur False
+		isValidChoice = False
 		#Assigner à gameOver le retour de l'appel de la fonction morpionEndChecker(board)
+		gameOver = morpionEndChecker(board)
 	#Afficher un message de retour au menu
+	print(" Retour vers le Menu")
+	print(" Retour vers le Menu.")
+	print(" Retour vers le Menu..")
+	print(" Retour vers le Menu...")
 
 
 
@@ -202,6 +250,7 @@ def morpionBlinkBoard(board):
 	#Initialiser une liste OOportunity à [None]
 	#Initialiser une varibale spaceCounter à 0
 	#Initialiser une variable boardStatus à "common"
+
 	#Tant que gameOver est à False, Alors...
 		#Si turnOf est égal à 1, Alors...
 			#Vider l'écran de la console
@@ -468,44 +517,93 @@ def morpionBlinkBoard(board):
 
 
 #Définir une fonction morpionVsPlayer qui permet de jouer à une partie de morpion contre un autre joueur
+def morpionVsPlayer():
 	#Initialiser un tableau 2D board de format 3 par 3 avec uniquement des cases comportant ' '
+	board = [[' '] * 3] * 3
 	#Initialiser une variable turnOf avec le retour de randint(1, 2)
+	turnOf = randint(0, 2)
 	#Initialiser une variable gameOver à False
+	gameOver = False
 	#Initialiser une liste player1Choice à [None, None]
+	playerChoice1 = [None, None]
 	#Initialiser une liste player2Choice à [None, None]
+	playerChoice2 = [None, None]
 	#Initialiser une variable isValidChoice à False
+	isValidChoice = False
 	#Tant que gameOver est à False, Alors...
+	while not gameOver:
 		#Si turnOf est égal à 1, Alors...
+		if turnOf == 1:
 			#Vider l'écran de la console
+			clear()
 			#Afficher "C'est au tour du Joueur 1 !"
+			print("C'est au tour du Joueur 1 !")
 			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Tant que isValidChoice est à False, Alors...
+			while not isValidChoice:
 				#Assigner à playerChoice1[0] le retour de l'appel de la fonction input("Quel ligne visez-vous ? ")
+				playerChoice1[0] = int(input("Quel ligne visez-vous ?"))
 				#Assigner à playerChoice1[1] le retour de l'appel de la fonction input("Quel colonne visez-vous ? ")
+				playerChoice1[1] = int(input("Quel colonne visez-vous ?"))
 				#Si playerChoice1[0] ou playerChoice1[1] ne sont pas compris entre 0 et 2, Alors...
+				if (playerChoice1[0] < 0 or playerChoice1[0] > 2) or (playerChoice1[1] < 0 or playerChoice1[1] > 2):
 					#Afficher un message d'erreur : la position n'est pas valide
+					print("     !! ERR !!\nLa position spécifié n'est pas valide...\n\n")
 				#Sinon Si board[playerChoice1[0]][playerChoice1[1]] est différent de ' ', Alors...
+				elif board[playerChoice1[0]][playerChoice1[1]] != ' ':
 					#Afficher un message d'erreur : la case est occupée
+					print("     !! ERR !!\nLa case spécifié est occupée...\n\n")
 				#Sinon : board[playerChoice1[0]][playerChoice1[1]] est égal à ' ', Alors...
+				else:
 					#Assigner à isValidChoice la valeur True
+					isValidChoice = True
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'O', playerChoice1)
+			board = morpionTurnManager(board, 'O', playerChoice1)
+			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Assigner à turnOf la valeur 2
+			turnOf = 2
+
 		#Sinon : turnOf est égal à 2, Alors...
-			#Afficher "C'est au tour de l'Ordinateur !"
+		else:
+			#Vider l'écran de la console
+			clear()
+			#Afficher "C'est au tour du Joueur 2 !"
+			print("C'est au Joueur 2 !")
 			#Tant que isValidChoice est à False, Alors...
+			while not isValidChoice:
 				#Assigner à playerChoice2[0] le retour de l'appel de la fonction input("Quel ligne visez-vous ? ")
+				playerChoice2[0] = int(input("Quel ligne visez-vous ?"))
 				#Assigner à playerChoice2[1] le retour de l'appel de la fonction input("Quel colonne visez-vous ? ")
+				playerChoice2[1] = int(input("Quel colonne visez-vous ?"))
 				#Si playerChoice2[0] ou playerChoice2[1] ne sont pas compris entre 0 et 2, Alors...
+				if (playerChoice2[0] < 0 or playerChoice2[0] > 2) or (playerChoice2[1] < 0 or playerChoice2[1] > 2):
 					#Afficher un message d'erreur : la position n'est pas valide
+					print("     !! ERR !!\nLa position spécifié n'est pas valide...\n\n")
 				#Sinon Si board[playerChoice2[0]][playerChoice2[1]] est différent de ' ', Alors...
+				elif board[playerChoice2[0]][playerChoice2[1]] != ' ':
 					#Afficher un message d'erreur : la case est occupée
+					print("     !! ERR !!\nLa case spécifié est occupée...\n\n")
 				#Sinon : board[playerChoice2[0]][playerChoice2[1]] est égal à ' ', Alors...
+				else:
 					#Assigner à isValidChoice la valeur True
+					isValidChoice = True
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', playerChoice2)
+			board = morpionTurnManager(board)
+			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Assigner à turnOf la valeur 1
+			turnOf = 1
 		#Assigner à isValidChoice la valeur False
+		isValidChoice = False
 		#Assigner à gameOver le retour de l'appel de la fonction morpionEndChecker(board)
+		gameOver = morpionEndChecker(board)
 	#Afficher un message de retour au menu
+	print(" Retour vers le Menu")
+	print(" Retour vers le Menu.")
+	print(" Retour vers le Menu..")
+	print(" Retour vers le Menu...")
 
 
 #Définir une fonction morpion() qui permet de lancer une partie de morpion
@@ -563,129 +661,4 @@ def morpion():
 
 #FIN
 
-# 	179│
-# 	196─
-# 	186║
-# 	205═
-
-# 	[218,194,191] ┌┬┐
-# 	[195,197,180] ├┼┤
-# 	[192,193,217] └┴┘
-
-# 	[201,203,187] ╔╦╗
-# 	[204,206,185] ╠╬╣
-# 	[200,202,188] ╚╩╝
-
-# ╔═╗   ╔═╦═╗
-# ║ ║   ║O║O║
-# ╚═╝   ╠═╬═╣
-#       ║O║X║
-#       ╚═╩═╝
-# ┌─┐   ┌─┬─┐
-# │ │   │X│X│
-# └─┘   ├─┼─┤
-#       │O│X│
-#       └─┴─┘
-
-# Check toutes les lignes de victoires
-# Si XXportunity, alors finish
-# Sinon Si OOportunity, alors block
-# Sinon : 
-
-# Si empty
-# ╔═╦═╦═╗
-# ║ ║ ║ ║
-# ╠═╬═╬═╣
-# ║ ║ ║ ║
-# ╠═╬═╬═╣
-# ║ ║ ║ ║
-# ╚═╩═╩═╝
-# 	Alors center
-# 	╔═╦═╦═╗
-# 	║ ║ ║ ║
-# 	╠═╬═╬═╣
-# 	║ ║X║ ║
-# 	╠═╬═╬═╣
-# 	║ ║ ║ ║
-# 	╚═╩═╩═╝
-# 	Si N-cross
-# 	╔═╦═╦═╗
-# 	║ ║•║ ║
-# 	╠═╬═╬═╣
-# 	║•║X║O║
-# 	╠═╬═╬═╣
-# 	║ ║•║ ║
-# 	╚═╩═╩═╝
-# 		Alors same line
-# 		╔═╦═╦═╗
-# 		║ ║ ║X║
-# 		╠═╬═╬═╣
-# 		║ ║X║O║
-# 		╠═╬═╬═╣
-# 		║ ║ ║×║
-# 		╚═╩═╩═╝
-# 		Si block
-# 		╔═╦═╦═╗
-# 		║ ║ ║X║
-# 		╠═╬═╬═╣
-# 		║ ║X║O║
-# 		╠═╬═╬═╣
-# 		║O║ ║ ║
-# 		╚═╩═╩═╝
-# 			Alors corner no-neighbours
-# 			╔═╦═╦═╗
-# 			║X║ ║X║
-# 			╠═╬═╬═╣
-# 			║ ║X║O║
-# 			╠═╬═╬═╣
-# 			║O║ ║ ║
-# 			╚═╩═╩═╝ ==> WIN
-# 		Sinon ==> WIN
-# 	Sinon
-# 	╔═╦═╦═╗
-# 	║•║ ║O║
-# 	╠═╬═╬═╣
-# 	║ ║X║ ║
-# 	╠═╬═╬═╣
-# 	║•║ ║•║
-# 	╚═╩═╩═╝
-# 		Alors random
-# Sinon Si
-# ╔═╦═╦═╗
-# ║ ║ ║ ║
-# ╠═╬═╬═╣
-# ║ ║O║ ║
-# ╠═╬═╬═╣
-# ║ ║ ║ ║
-# ╚═╩═╩═╝
-# 	Alors random-corner
-# 	╔═╦═╦═╗
-# 	║×║ ║X║
-# 	╠═╬═╬═╣
-# 	║ ║O║ ║
-# 	╠═╬═╬═╣
-# 	║×║ ║×║
-# 	╚═╩═╩═╝
-# Sinon
-# ╔═╦═╦═╗
-# ║ ║O║ ║
-# ╠═╬═╬═╣
-# ║•║ ║•║
-# ╠═╬═╬═╣
-# ║ ║•║ ║
-# ╚═╩═╩═╝
-# 	Alors
-# 	╔═╦═╦═╗
-# 	║ ║O║ ║
-# 	╠═╬═╬═╣
-# 	║ ║ ║ ║
-# 	╠═╬═╬═╣
-# 	║ ║ ║ ║
-# 	╚═╩═╩═╝
-# -----------------------
-# Si centre dispo, alors grab
-# Si centre à 'X' + 1 seul 'O' + en D-cross, alors Gagner
-# Si centre occupé + 1 seul 'O' + aucun 'X', alors prendre un coin au pif
-# Sinon au pif
-
-# Après avoir jouer, lister les XXportunity
+morpion()
