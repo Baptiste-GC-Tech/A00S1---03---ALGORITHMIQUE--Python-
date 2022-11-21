@@ -1,5 +1,7 @@
 #DEBUT
 
+#Admettre la fonction sleep() qui fait attendre le programme
+from time import sleep
 #Admettre la fonction randint() qui renvoi un entier aléatoire entre 2 valeurs incluses
 from random import randint
 #Admettre la fonction os() qui permet d'éxecuter des commandes dans la console
@@ -12,11 +14,6 @@ def morpionTurnManager(board, symbol, coordinates):
 	#Initialiser un tableau 2D updatedBoard égal à board
 	updatedBoard = board
 	#Assigner à updatedBoard[coordinates[0], coordinates[1]] le caractère symbol
-
-	print("~~~\n")
-	print(coordinates)
-	print(coordinates[0])
-	print(coordinates[1])
 
 	updatedBoard[coordinates[0]][coordinates[1]] = symbol
 	#Retourner updatedBoard
@@ -116,7 +113,7 @@ def morpionPrintBoard(board):
 	print("║" + str(board[1][0]) + "║" + str(board[1][1]) + "║" + str(board[1][2]) + "║")
 	#Afficher "╠═╬═╬═╣"
 	print("╠═╬═╬═╣")
-	#Afficher "║" + str(board[2][0]) + "║" + str(board[2][1]) + "║" + str(board[2][2]) + "║"
+	#Afficher "║" + str(board[2] [0]) + "║" + str(board[2][1]) + "║" + str(board[2][2]) + "║"
 	print("║" + str(board[2][0]) + "║" + str(board[2][1]) + "║" + str(board[2][2]) + "║")
 	#Afficher "╚═╩═╩═╝"
 	print("╚═╩═╩═╝")
@@ -137,27 +134,46 @@ def morpionBlinkBoard(board):
 			if lighterBoard[x][y] == 'X':
 				#Assigner à ligtherBoard[x][y] le caractère '×'
 				lighterBoard[x][y] = '×'
-	#Afficher "┌─┬─┬─┐"
-	print("┌─┬─┬─┐")
-	#Afficher "│" + str(board[0][0]) + "│" + str(board[0][1]) + "│" + str(board[0][2]) + "│"
-	print("│" + str(board[0][0]) + "│" + str(board[0][1]) + "│" + str(board[0][2]) + "│")
-	#Afficher "├─┼─┼─┤"
-	print("├─┼─┼─┤")
-	#Afficher "│" + str(board[1][0]) + "│" + str(board[1][1]) + "│" + str(board[1][2]) + "│"
-	print("│" + str(board[1][0]) + "│" + str(board[1][1]) + "│" + str(board[1][2]) + "│")
-	#Afficher "├─┼─┼─┤"
-	print("├─┼─┼─┤")
-	#Afficher "│" + str(board[2][0]) + "│" + str(board[2][1]) + "│" + str(board[2][2]) + "│"
-	print("│" + str(board[2][0]) + "│" + str(board[2][1]) + "│" + str(board[2][2]) + "│")
-	#Afficher "└─┴─┴─┘"
-	print("└─┴─┴─┘")
+
+	#Pour i de 0 jusqu'à 4, Faire...
+	for i in range(3):
+		#Afficher "┌─┬─┬─┐"
+		print("┌─┬─┬─┐")
+		#Afficher "│" + str(board[0][0]) + "│" + str(board[0][1]) + "│" + str(board[0][2]) + "│"
+		print("│" + str(board[0][0]) + "│" + str(board[0][1]) + "│" + str(board[0][2]) + "│")
+		#Afficher "├─┼─┼─┤"
+		print("├─┼─┼─┤")
+		#Afficher "│" + str(board[1][0]) + "│" + str(board[1][1]) + "│" + str(board[1][2]) + "│"
+		print("│" + str(board[1][0]) + "│" + str(board[1][1]) + "│" + str(board[1][2]) + "│")
+		#Afficher "├─┼─┼─┤"
+		print("├─┼─┼─┤")
+		#Afficher "│" + str(board[2][0]) + "│" + str(board[2][1]) + "│" + str(board[2][2]) + "│"
+		print("│" + str(board[2][0]) + "│" + str(board[2][1]) + "│" + str(board[2][2]) + "│")
+		#Afficher "└─┴─┴─┘"
+		print("└─┴─┴─┘")
+		
+		#Attendre 400 ms
+		sleep(0.17)
+		#Vider l'écran de la console
+		clear()
+
+		#Appeler la fonction qui affiche la table normalement
+		morpionPrintBoard(board)
+
+		#Attendre 400 ms
+		sleep(0.17)
+		#Vider l'écran de la console
+		clear()
+
+		#Incrémenter i de 1
+		i = i + 1
 
 
 
 #Définir une fonction morpionVsCpu() qui permet de jouer à une partie de morpion avec l'ordinateur
 def morpionVsCpu():
 	#Initialiser un tableau 2D board de format 3 par 3 avec uniquement des cases comportant ' '
-	board = [[' '] * 3] * 3
+	board = [[' ']*3 for i in range(3)]
 	#Initialiser une variable turnOf avec le retour de randint(1, 2)
 	turnOf = randint(1, 2)
 	#Initialiser une variable gameOver à False
@@ -519,7 +535,7 @@ def morpionVsCpu():
 #Définir une fonction morpionVsPlayer qui permet de jouer à une partie de morpion contre un autre joueur
 def morpionVsPlayer():
 	#Initialiser un tableau 2D board de format 3 par 3 avec uniquement des cases comportant ' '
-	board = [[' '] * 3] * 3
+	board = [[' ']*3 for i in range(3)]
 	#Initialiser une variable turnOf avec le retour de randint(1, 2)
 	turnOf = randint(0, 2)
 	#Initialiser une variable gameOver à False
@@ -660,5 +676,3 @@ def morpion():
 	print("fermeture...")
 
 #FIN
-
-morpion()
