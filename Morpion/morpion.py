@@ -29,20 +29,20 @@ def morpionEndChecker(board):
 	gameStatus = None
 	#Initialiser une liste winnerSymbol à [None, None]
 	winnerSymbol = [None, None]
-	#Pour xCoord dans 2, Faire...
-	for xCoord in range(2):
+	#Pour xCoord dans 3, Faire...
+	for xCoord in range(3):
 		#Si board[xCoord][0] est égal à board[xCoord][1] ET board[xCoord][1] est égal à board[xCoord][2], Alors...
-		if board[xCoord][0] == board[xCoord][1] and board[xCoord][1] == board[xCoord][2]:
+		if (board[xCoord][0] == board[xCoord][1] and board[xCoord][1] == board[xCoord][2]) and board[xCoord][0] != ' ':
 			#Assigner à gameStatus le string "winned"
 			gameStatus = "winned"
 			#Assigner à winnerSymbol la liste [xCoord, 1]
 			winnerSymbol = [xCoord, 1]
 			#Sortir de la boucle
 			break
-	#Pour yCoord dans 2, Faire...
-	for yCoord in range(2):
+	#Pour yCoord dans 3, Faire...
+	for yCoord in range(3):
 		#Si board[0][yCoord] est égal à board[1][yCoord] ET board[1][yCoord] est égal à board[2][yCoord], Alors...
-		if board[xCoord][0] == board[xCoord][1]  and board[xCoord][1] == board[xCoord][2]:
+		if (board[0][yCoord] == board[1][yCoord]  and board[1][yCoord] == board[2][yCoord]) and board[0][yCoord] != ' ':
 			#Assigner à gameStatus le string "winned"
 			gameStatus = "winned"
 			#Assigner à winnerSymbol la liste [1, yCoord]
@@ -50,13 +50,13 @@ def morpionEndChecker(board):
 			#Sortir de la boucle
 			break
 	#Si board[0][0] est égal à board[1][1] ET board[1][1] est égal à board[2][2], Alors...
-	if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
+	if (board[0][0] == board[1][1] and board[1][1] == board[2][2]) and board[0][0] != ' ':
 		#Assigner à gameStatus le string "winned"
 		gameStatus = "winned"
 		#Assigner à winnerSymbol la liste [1, 1]
 		winnerSymbol = [1,1]
 	#Si board[2][0] est égal à board[1][1] ET board[1][1] est égal à board[0][2], Alors...
-	if board[2][0] == board[1][1] and board[1][1] == board[0][2]:
+	if (board[2][0] == board[1][1] and board[1][1] == board[0][2]) and board[2][0] != ' ':
 		#Assigner à gameStatus le string "winned"
 		gameStatus = "winned"
 		#Assigner à winnerSymbol la liste [1, 1]
@@ -67,9 +67,9 @@ def morpionEndChecker(board):
 		#Assigner à gameStatus le string "blocked"
 		gameStatus = "blocked"
 		#Pour x dans 0 à 2, Faire...
-		for x in range(0, 2):
+		for x in range(0, 3):
 			#Pour y dans 0 à 2, Faire...
-			for y in range(0, 2):
+			for y in range(0, 3):
 				#Si board[x][y] est égal à ' ', Alors...
 				if board[x][y] == ' ':
 					#Assigner à gameStatus la valeur None
@@ -87,7 +87,7 @@ def morpionEndChecker(board):
 		#Sinon Si board[winnerSymbol[0]][winnerSymbol[1]] est égal à 'X', Alors...
 		elif board[winnerSymbol[0]][winnerSymbol[1]] == 'X':
 			#Afficher "le Participant 2 à gagné"
-			print("Le participant 1 a gagné")
+			print("Le participant 2 a gagné")
 		#Retourner True
 		return True
 	#Sinon Si gameStatus est égal à "blocked", Alors...
@@ -123,9 +123,9 @@ def morpionBlinkBoard(board):
 	#Initialiser un tableau 2D lighterBoard égal à board
 	lighterBoard = board
 	#Pour x dans 0 à 2, Faire...
-	for x in range(0, 2):
+	for x in range(0, 3):
 		#Pour y dans 0 à 2, Faire...
-		for y in range(0, 2):
+		for y in range(0, 3):
 			#Si lighterBoard[x][y] est égal à 'O', Alors...
 			if lighterBoard[x][y] == 'O':
 				#Assigner à lighterBoard[x][y] le caractère '○'
@@ -155,7 +155,7 @@ def morpionBlinkBoard(board):
 		#Attendre 400 ms
 		sleep(0.17)
 		#Vider l'écran de la console
-		clear()
+		
 
 		#Appeler la fonction qui affiche la table normalement
 		morpionPrintBoard(board)
@@ -163,7 +163,7 @@ def morpionBlinkBoard(board):
 		#Attendre 400 ms
 		sleep(0.17)
 		#Vider l'écran de la console
-		clear()
+		
 
 		#Incrémenter i de 1
 		i = i + 1
@@ -173,7 +173,7 @@ def morpionBlinkBoard(board):
 #Définir une fonction morpionVsCpu() qui permet de jouer à une partie de morpion avec l'ordinateur
 def morpionVsCpu():
 	#Initialiser un tableau 2D board de format 3 par 3 avec uniquement des cases comportant ' '
-	board = [[' ']*3 for i in range(3)]
+	board = [[' ' for i in range(3)] for i in range(3)]
 	#Initialiser une variable turnOf avec le retour de randint(1, 2)
 	turnOf = randint(1, 2)
 	#Initialiser une variable gameOver à False
@@ -190,7 +190,7 @@ def morpionVsCpu():
 		#Si turnOf est égal à 1, Alors...
 		if turnOf == 1:
 			#Vider l'écran de la console
-			clear()
+			
 			#Afficher "C'est au tour du Joueur !"
 			print("C'est autour du Joueur !")
 			#Appeler la fonction morpionPrintBoard(board)
@@ -198,9 +198,9 @@ def morpionVsCpu():
 			#Tant que isValidChoice est à False, Alors...
 			while not isValidChoice:
 				#Assigner à playerChoice[0] le retour de l'appel de la fonction input("Quel ligne visez-vous ? ")
-				playerChoice[0] = int(input("Quel ligne visez-vous ?"))
+				playerChoice[0] = int(input("Quel ligne visez-vous ? "))
 				#Assigner à playerChoice[1] le retour de l'appel de la fonction input("Quel colonne visez-vous ? ")
-				playerChoice[1] = int(input("Quel colonne visez-vous ?"))
+				playerChoice[1] = int(input("Quel colonne visez-vous ? "))
 				#Si playerChoice[0] ou playerChoice[1] ne sont pas compris entre 0 et 2, Alors...
 				if (playerChoice[0] < 0 or playerChoice[0] > 2) or (playerChoice[1] < 0 or playerChoice[1] > 2):
 					#Afficher un message d'erreur : la position n'est pas valide
@@ -253,281 +253,390 @@ def morpionVsCpu():
 
 
 #Définir une fonction morpionVsIA qui permet de jouer à une partie de morpion contre une IA imbattable
+def morpionVsIA():
 	#Initialiser un tableau 2D board de format 3 par 3 avec uniquement des cases comportant ' '
+	board = [[' ' for i in range(3)] for i in range(3)]
 	#Initialiser une variable turnOf avec le retour de randint(1, 2)
+	turnOf = randint(1, 2)
 	#Initialiser une variable gameOver à False
+	gameOver = False
 	#Initialiser une liste playerChoice à [None, None]
+	playerChoice = [None, None]
 	#Initialiser une liste IAChoice à [None, None]
+	IAChoice = [None, None]
 	#Initialiser une variable IAChoosed à False
+	IAChoosed = False
 	#Initialiser une variable isValidChoice à False
+	isValidChoice = False
 	#Initialiser une variable Xcounter à 0
-	#Initialiser une liste XXportunity à [None]
+	Xcounter = 0
+	#Initialiser une liste XXportunity à []
+	XXportunity = []
 	#Initialiser une variable Ocounter à 0
-	#Initialiser une liste OOportunity à [None]
+	Ocounter = 0
+	#Initialiser une liste OOportunity à []
+	OOportunity = []
 	#Initialiser une varibale spaceCounter à 0
+	spaceCounter = 0
 	#Initialiser une variable boardStatus à "common"
+	boardStatus = "common"
 
 	#Tant que gameOver est à False, Alors...
+	while not gameOver:
 		#Si turnOf est égal à 1, Alors...
+		if turnOf == 1:
 			#Vider l'écran de la console
 			#Afficher "C'est au tour du Joueur !"
+			print("C'est au tour du Joueur !")
 			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Tant que isValidChoice est à False, Alors...
+			while not isValidChoice:
 				#Assigner à playerChoice[0] le retour de l'appel de la fonction input("Quel ligne visez-vous ? ")
+				playerChoice[0] = int(input("Quel ligne visez-vous ? "))
 				#Assigner à playerChoice[1] le retour de l'appel de la fonction input("Quel colonne visez-vous ? ")
+				playerChoice[1] = int(input("Quel colonne visez-vous ? "))
 				#Si playerChoice[0] ou playerChoice[1] ne sont pas compris entre 0 et 2, Alors...
+				if (playerChoice[0] < 0 or playerChoice[0] > 2) or (playerChoice[1] < 0 or playerChoice[1] > 2):
 					#Afficher un message d'erreur : la position n'est pas valide
+					print("     !! ERR !!\nLa position spécifié n'est pas valide...\n\n")
 				#Sinon Si board[playerChoice[0]][playerChoice[1]] est différent de ' ', Alors...
+				elif board[playerChoice[0]][playerChoice[1]] != ' ':
 					#Afficher un message d'erreur : la case est occupée
+					print("     !! ERR !!\nLa case spécifié est occupée...\n\n")
 				#Sinon : board[playerChoice[0]][playerChoice[1]] est égal à ' ', Alors...
+				else:
 					#Assigner à isValidChoice la valeur True
+					isValidChoice = True
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'O', playerChoice)
+			board = morpionTurnManager(board, 'O', playerChoice)
 			#Assigner à turnOf la valeur 2
+			turnOf = 2
+
 		#Sinon : turnOf est égal à 2, Alors...
+		else:
+
+
+			print("C'est au tour du Joueur \"2\" ! l'IA va vérifier tho")
+			morpionPrintBoard(board)
+			while not isValidChoice:
+				playerChoice[0] = int(input("Quel ligne visez-vous ? "))
+				playerChoice[1] = int(input("Quel colonne visez-vous ? "))
+				if (playerChoice[0] < 0 or playerChoice[0] > 2) or (playerChoice[1] < 0 or playerChoice[1] > 2):
+					print("     !! ERR !!\nLa position spécifié n'est pas valide...\n\n")
+				elif board[playerChoice[0]][playerChoice[1]] != ' ':
+					print("     !! ERR !!\nLa case spécifié est occupée...\n\n")
+				else:
+					isValidChoice = True
+			board = morpionTurnManager(board, 'X', playerChoice)
+
+
+
+
 			#Afficher "C'est au tour de l'IA !"
+			print("C'est au tour de l'IA !")
 
-				#  RESET DES NOUVELLES "portunity"
+			#  RESET DES NOUVELLES "portunity"
 
-				#Assigner à OOportunity la liste [None]
-				#Assigner à XXportunity la liste [None]
+			#Assigner à OOportunity la liste []
+			OOportunity = []
+			#Assigner à XXportunity la liste []
+			XXportunity = []
 
 
-				#  REMPLISSAGE DES "portunity"
+			#  REMPLISSAGE DES "portunity"
 
-				#Pour x dans 0 à 2, Faire...
-					#Assigner à Ocounter la valeur 0
-					#Assigner à Xcounter la valeur 0
-					#Pour y dans 0 à 2, Faire...
-						#Si board[x][y] est égal à 'O', Alors...
-							#Incrémenter Ocounter de 1
-						#Sinon Si board[x][y] est égal à 'X', Alors...
-							#Incrémenter Xcounter de 1
-					#Si Ocounter est égal à 2 et Xcounter est égal à 0, Alors...
-						#Ajouter dans OOportunity le string "r" + str(x+1)
-					#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
-						#Ajouter dans XXportunity le string "r" + str(x+1)
-
+			#Pour x dans 0 à 2, Faire...
+			for x in range(0, 3):
+				#Assigner à Ocounter la valeur 0
+				Ocounter = 0
+				#Assigner à Xcounter la valeur 0
+				Xcounter = 0
 				#Pour y dans 0 à 2, Faire...
-					#Assigner à Ocounter la valeur 0
-					#Assigner à Xcounter la valeur 0
-					#Pour x dans 0 à 2, Faire...
-						#Si board[x][y] est égal à 'O', Alors...
-							#Incrémenter Ocounter de 1
-						#Sinon Si board[x][y] est égal à 'X', Alors...
-							#Incrémenter Xcounter de 1
-					#Si Ocounter est égal à 2 et Xcounter est égal à 0, Alors...
-						#Ajouter dans OOportunity le string "c" + str(y+1)
-					#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
-						#Ajouter dans XXportunity le string "c" + str(y+1)
-
-				#Assigner à Ocounter la valeur 0
-				#Assigner à Xcounter la valeur 0
-				#Pour x dans 0 à 2, Faire...
-					#Si board[x][x] est égal à 'O', Alors...
+				for y in range(0, 3):
+					#Si board[x][y] est égal à 'O', Alors...
+					if board[x][y] == 'O':
 						#Incrémenter Ocounter de 1
-					#Sinon Si board[x][x] est égal à 'X', Alors...
+						Ocounter = Ocounter + 1
+					#Sinon Si board[x][y] est égal à 'X', Alors...
+					elif board[x][y] == 'X':
 						#Incrémenter Xcounter de 1
-				#Sinon Si Ocounter est égal à 2 et Xcounter est égal à 0, Alors...
-					#Ajouter à OOportunity le string "d1"
-				#Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
-					#Ajouter à XXportunity le string "d1"
-
-				#Assigner à Ocounter la valeur 0
-				#Assigner à Xcounter la valeur 0
-				#Si board[0][2] est égal à 'O', Alors...
-					#Incrémenter Ocounter de 1
-				#Sinon Si board[0][2] est égal à 'X', Alors...
-					#Incrémenter Xcounter de 1
-				#Si board[1][1] est égal à 'O', Alors...
-					#Incrémenter Ocounter de 1
-				#Sinon Si board[1][1] est égal à 'X', Alors...
-					#Incrémenter Xcounter de 1
-				#Si board[2][0] est égal à 'O', Alors...
-					#Incrémenter Ocounter de 1
-				#Sinon Si board[2][0] est égal à 'X', Alors...
-					#Incrémenter Xcounter de 1
-				#Si Ocounter est égal à 2 et Xocunter est égal à 0, Alors...
-					#Ajouter à OOportunity le string "d2"
+						Xcounter = Xcounter + 1
+				#Si Ocounter est égal à 2 et Xcounter est égal à 0, Alors...
+				if Ocounter == 2 and Xcounter == 0:
+					#Ajouter dans OOportunity le string "r" + str(x+1)
+					OOportunity.append("r" + str(x+1))
 				#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
-					#Ajouter à XXportunity le string "d2"
+				elif Xcounter == 2 and Ocounter == 0:
+					#Ajouter dans XXportunity le string "r" + str(x+1)
+					XXportunity.append("r" + str(x+1))
 
-				#  SAISIE D'UNE OPPORTUNITÉ DE VICTOIRE S'IL Y A
+			#Pour y dans 0 à 2, Faire...
+			for y in range(0, 3):
+				#Assigner à Ocounter la valeur 0
+				Ocounter = 0
+				#Assigner à Xcounter la valeur 0
+				Xcounter = 0
+				#Pour x dans 0 à 2, Faire...
+				for x in range(0, 3):
+					#Si board[x][y] est égal à 'O', Alors...
+					if board[x][y] == 'O':
+						#Incrémenter Ocounter de 1
+						Ocounter = Ocounter + 1
+					#Sinon Si board[x][y] est égal à 'X', Alors...
+					elif board[x][y] == 'X':
+						#Incrémenter Xcounter de 1
+						Xcounter = Xcounter + 1
+				#Si Ocounter est égal à 2 et Xcounter est égal à 0, Alors...
+				if Ocounter == 2 and Xcounter == 0:
+					#Ajouter dans OOportunity le string "c" + str(y+1)
+					OOportunity.append("c" + str(y+1))
+				#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
+				elif Xcounter == 2 and Ocounter == 0:
+					#Ajouter dans XXportunity le string "c" + str(y+1)
+					XXportunity.append("c" + str(y+1))
+
+			#Assigner à Ocounter la valeur 0
+			Ocounter = 0
+			#Assigner à Xcounter la valeur 0
+			Xcounter = 0
+			#Pour x dans 0 à 2, Faire...
+			for x in range(0, 3):
+				#Si board[x][x] est égal à 'O', Alors...
+				if board[x][x] == 'O':
+					#Incrémenter Ocounter de 1
+					Ocounter = Ocounter + 1
+				#Sinon Si board[x][x] est égal à 'X', Alors...
+				elif board[x][x] == 'X':
+					#Incrémenter Xcounter de 1
+					Xcounter = Xcounter + 1
+			#Si Ocounter est égal à 2 et Xcounter est égal à 0, Alors...
+			if Ocounter == 2 and Xcounter == 0:
+				#Ajouter à OOportunity le string "d1"
+				OOportunity.append("d1")
+			#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
+			if Xcounter == 2 and Ocounter == 0:
+				#Ajouter à XXportunity le string "d1"
+				XXportunity.append("d1")
+
+			#Assigner à Ocounter la valeur 0
+			Ocounter = 0
+			#Assigner à Xcounter la valeur 0
+			Xcounter = 0
+			#Si board[0][2] est égal à 'O', Alors...
+			if board[0][2] == 'O':
+				#Incrémenter Ocounter de 1
+				Ocounter = Ocounter + 1
+			#Sinon Si board[0][2] est égal à 'X', Alors...
+			elif board[0][2] == 'X':
+				#Incrémenter Xcounter de 1
+				Xcounter = Xcounter + 1
+			#Si board[1][1] est égal à 'O', Alors...
+			if board[1][1] == 'O':
+				#Incrémenter Ocounter de 1
+				Ocounter = Ocounter + 1
+			#Sinon Si board[1][1] est égal à 'X', Alors...
+			elif board[1][1] == 'X':
+				#Incrémenter Xcounter de 1
+				Xcounter = Xcounter + 1
+			#Si board[2][0] est égal à 'O', Alors...
+			if board[2][0] == 'O':
+				#Incrémenter Ocounter de 1
+				Ocounter = Ocounter + 1
+			#Sinon Si board[2][0] est égal à 'X', Alors...
+			elif board[2][0] == 'X':
+				#Incrémenter Xcounter de 1
+				Xcounter = Xcounter + 1
+			#Si Ocounter est égal à 2 et Xocunter est égal à 0, Alors...
+			if Ocounter == 2 and Xcounter == 0:
+				#Ajouter à OOportunity le string "d2"
+				OOportunity.append("d2")
+			#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
+			elif Xcounter == 2 and Ocounter == 0:
+				#Ajouter à XXportunity le string "d2"
+				XXportunity.append("d2")
+
+			#  SAISIE D'UNE OPPORTUNITÉ DE VICTOIRE S'IL Y A
 
 
-				#Si XXportunity est différente de [None], Alors...
-					#Si XXportunity[0][0] est égal à 'r', Alors...
-						#Pour y dans 0 à 2, Faire...
-							#Si board[int(XXportunity[0][1])][y] est égal à ' ', Alors...
-								#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [int(XXportunity[0][1]), y])
-								#Sortir de la boucle
-
-					#Si XXportunity[0][0] est égal à 'c', Alors...
-						#Pour x dans 0 à 2, Faire...
-							#Si board[x][int(XXportunity[0][1])] est égal à ' ', Alors...
-								#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [x, int(XXportunity[0][1])])
-								#Sortir de la boucle
-
-					#Si XXportunity[0] est égal à "d1", Alors...
-						#Pour xy dans 0 à 2, Faire...
-							#Si board[xy][xy] est égal à ' ', Alors...
-								#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [xy, xy])
-								#Sortir de la boucle
-
-					#Si XXportunity[0] est égal à "d2", Alors...
-						#Si board[0][2] est égal à ' ', Alors...
-							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [0, 2])
+			#Si XXportunity est différente de [None], Alors...
+				#Si XXportunity[0][0] est égal à 'r', Alors...
+					#Pour y dans 0 à 2, Faire...
+						#Si board[int(XXportunity[0][1])][y] est égal à ' ', Alors...
+							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [int(XXportunity[0][1]), y])
 							#Sortir de la boucle
-						#Sinon Si board[1][1] est égal à ' ', Alors...
-							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [1, 1])
-							#Sortir de la boucle
-						#Sinon Si board[2][0] est égal à ' ', Alors...
-							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [2, 0])
-							#Sortir de la boucle
 
-				#  CONTRE D'UNE OPPORTUNITÉ DE DÉFAITE S'IL Y A
-
-
-				#Sinon Si OOportunity est différente de [None], Alors...
-					#Si OOportunity[0][0] est égal à 'r', Alors...
-						#Pour y dans 0 à 2, Faire...
-							#Si board[int(OOportunity[0][1])][y] est égal à ' ', Alors...
-								#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [int(OOportunity[0][1]), y])
-								#Sortir de la boucle
-
-					#Si OOportunity[0][0] est égal à 'c', Alors...
-						#Pour x dans 0 à 2, Faire...
-							#Si board[x][int(OOportunity[0][1])] est égal à ' ', Alors...
-								#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [x, int(OOportunity[0][1])])
-								#Sortir de la boucle
-
-					#Si OOportunity[0] est égal à "d1", Alors...
-						#Pour xy dans 0 à 2, Faire...
-							#Si board[xy][xy] est égal à ' ', Alors...
-								#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [xy, xy])
-								#Sortir de la boucle
-
-					#Si OOportunity[0] est égal à "d2", Alors...
-						#Si board[0][2] est égal à ' ', Alors...
-							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [0, 2])
-							#Sortir de la boucle
-						#Sinon Si board[1][1] est égal à ' ', Alors...
-							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [1, 1])
-							#Sortir de la boucle
-						#Sinon Si board[2][0] est égal à ' ', Alors...
-							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [2, 0])
-							#Sortir de la boucle
-
-				#  ALGORITHME DE STRATÉGIE PARFAITE SI AUCUN DES DEUX
-
-
-				#Sinon, Alors...
-					#Assigner à spaceCounter la valeur 0
+				#Si XXportunity[0][0] est égal à 'c', Alors...
 					#Pour x dans 0 à 2, Faire...
-						#Pour y dans 0 à 2, Faire...
-							#Si board[x][y] est égal à ' ', Alors...
-								#Incrémenter spaceCounter de 1
+						#Si board[x][int(XXportunity[0][1])] est égal à ' ', Alors...
+							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [x, int(XXportunity[0][1])])
+							#Sortir de la boucle
 
-					#Si board[1][1] est égal à ' ', Alors...
-						#Assigner à IAChoice[0] la valeur 1
-						#Assigner à IAChoice[1] la valeur 1
-						#Assigner à IAChoosed la valeur True
+				#Si XXportunity[0] est égal à "d1", Alors...
+					#Pour xy dans 0 à 2, Faire...
+						#Si board[xy][xy] est égal à ' ', Alors...
+							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [xy, xy])
+							#Sortir de la boucle
 
-					#Sinon Si spaceCounter est égal à 8 et IAChoosed est égal à False, Alors...
+				#Si XXportunity[0] est égal à "d2", Alors...
+					#Si board[0][2] est égal à ' ', Alors...
+						#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [0, 2])
+						#Sortir de la boucle
+					#Sinon Si board[1][1] est égal à ' ', Alors...
+						#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [1, 1])
+						#Sortir de la boucle
+					#Sinon Si board[2][0] est égal à ' ', Alors...
+						#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [2, 0])
+						#Sortir de la boucle
+
+			#  CONTRE D'UNE OPPORTUNITÉ DE DÉFAITE S'IL Y A
+
+
+			#Sinon Si OOportunity est différente de [None], Alors...
+				#Si OOportunity[0][0] est égal à 'r', Alors...
+					#Pour y dans 0 à 2, Faire...
+						#Si board[int(OOportunity[0][1])][y] est égal à ' ', Alors...
+							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [int(OOportunity[0][1]), y])
+							#Sortir de la boucle
+
+				#Si OOportunity[0][0] est égal à 'c', Alors...
+					#Pour x dans 0 à 2, Faire...
+						#Si board[x][int(OOportunity[0][1])] est égal à ' ', Alors...
+							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [x, int(OOportunity[0][1])])
+							#Sortir de la boucle
+
+				#Si OOportunity[0] est égal à "d1", Alors...
+					#Pour xy dans 0 à 2, Faire...
+						#Si board[xy][xy] est égal à ' ', Alors...
+							#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [xy, xy])
+							#Sortir de la boucle
+
+				#Si OOportunity[0] est égal à "d2", Alors...
+					#Si board[0][2] est égal à ' ', Alors...
+						#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [0, 2])
+						#Sortir de la boucle
+					#Sinon Si board[1][1] est égal à ' ', Alors...
+						#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [1, 1])
+						#Sortir de la boucle
+					#Sinon Si board[2][0] est égal à ' ', Alors...
+						#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', [2, 0])
+						#Sortir de la boucle
+
+			#  ALGORITHME DE STRATÉGIE PARFAITE SI AUCUN DES DEUX
+
+
+			#Sinon, Alors...
+				#Assigner à spaceCounter la valeur 0
+				#Pour x dans 0 à 2, Faire...
+					#Pour y dans 0 à 2, Faire...
+						#Si board[x][y] est égal à ' ', Alors...
+							#Incrémenter spaceCounter de 1
+
+				#Si board[1][1] est égal à ' ', Alors...
+					#Assigner à IAChoice[0] la valeur 1
+					#Assigner à IAChoice[1] la valeur 1
+					#Assigner à IAChoosed la valeur True
+
+				#Sinon Si spaceCounter est égal à 8 et IAChoosed est égal à False, Alors...
+					#Tant que isValidChoice est à False, Alors...
+						#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+						#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+						#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ' et IAChoice est différente de toutes les listes suivantes : [0, 1] [1, 0] [1, 2] [2, 1], Alors...
+							#Assigner à isValidChoice la valeur True
+							#Assigner à IAChoosed la valeur True
+
+				#Sinon Si spaceCounter est égal à 7 et IAChoosed est égal à False, Alors...
+					#Si board[0][1] ou board[2][1] est égal à 'O', Alors...
 						#Tant que isValidChoice est à False, Alors...
-							#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+							#Assigner à IAChoice[0] la valeur playerChoice[0]
 							#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
-							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ' et IAChoice est différente de toutes les listes suivantes : [0, 1] [1, 0] [1, 2] [2, 1], Alors...
+							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
 								#Assigner à isValidChoice la valeur True
 								#Assigner à IAChoosed la valeur True
 
-					#Sinon Si spaceCounter est égal à 7 et IAChoosed est égal à False, Alors...
-						#Si board[0][1] ou board[2][1] est égal à 'O', Alors...
-							#Tant que isValidChoice est à False, Alors...
-								#Assigner à IAChoice[0] la valeur playerChoice[0]
-								#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
-								#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
-									#Assigner à isValidChoice la valeur True
-									#Assigner à IAChoosed la valeur True
-
-						#Si board[1][0] ou board[1][2] est égal à 'O', Alors...
-							#Tant que isValidChoice est à False, Alors...
-								#Assigner à IAChoice[0] la retour de l'appel de la fonction randint(0, 2)
-								#Assigner à IAChoice[1] la valeur playerChoice[1]
-								#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
-									#Assigner à isValidChoice la valeur True
-									#Assigner à IAChoosed la valeur True
-
-						#Sinon : le Joueur à joué dans les diagonales, Alors...
-							#Tant que isValidChoice est à False, Alors...
-								#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
-								#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
-								#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
-									#Assigner à isValidChoice la valeur True
-									#Assigner à IAChoosed la valeur True
-
-					#Sinon Si spaceCounter est égal à 6 et IAChoosed est égal à False, Alors...
-						#Si board[1][1] est égal à 'X', Alors...
-							#Si board[0][1] et board[1][0] sont égal à 'O', Alors...
-								#Assigner à IAChoice[0] la valeur 0
-								#Assigner à IAChoice[1] la valeur 0
-								#Assigner à IAChoosed la valeur True
-							#Sinon Si board[0][1] et board[1][2] sont égal à 'O', Alors...
-								#Assigner à IAChoice[0] la valeur 0
-								#Assigner à IAChoice[1] la valeur 2
-								#Assigner à IAChoosed la valeur True
-							#Sinon Si board[2][1] et board[1][0] sont égal à 'O', Alors...
-								#Assigner à IAChoice[0] la valeur 2
-								#Assigner à IAChoice[1] la valeur 0
-								#Assigner à IAChoosed la valeur True
-							#Sinon Si board[2][1] et board[1][2] sont égal à 'O', Alors...
-								#Assigner à IAChoice[0] la valeur 2
-								#Assigner à IAChoice[1] la valeur 2
+					#Si board[1][0] ou board[1][2] est égal à 'O', Alors...
+						#Tant que isValidChoice est à False, Alors...
+							#Assigner à IAChoice[0] la retour de l'appel de la fonction randint(0, 2)
+							#Assigner à IAChoice[1] la valeur playerChoice[1]
+							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
+								#Assigner à isValidChoice la valeur True
 								#Assigner à IAChoosed la valeur True
 
-						#Sinon, Alors...
-							#Tant que isValidChoice est à False, Alors...
-								#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
-								#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
-								#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
-									#Assigner à isValidChoice la valeur True
-									#Assigner à IAChoosed la valeur True
+					#Sinon : le Joueur à joué dans les diagonales, Alors...
+						#Tant que isValidChoice est à False, Alors...
+							#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+							#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
+								#Assigner à isValidChoice la valeur True
+								#Assigner à IAChoosed la valeur True
 
-					#Sinon Si spaceCounter est égal à 5 et IAChoosed est égal False, Alors...
-						#Si board[0][0], board[0][1] et board[1][0] sont égal à ' ', Alors...
+				#Sinon Si spaceCounter est égal à 6 et IAChoosed est égal à False, Alors...
+					#Si board[1][1] est égal à 'X', Alors...
+						#Si board[0][1] et board[1][0] sont égal à 'O', Alors...
 							#Assigner à IAChoice[0] la valeur 0
 							#Assigner à IAChoice[1] la valeur 0
-						#Sinon Si board[0][2], board[0][1] et board[1][2] sont égal à ' ', Alors...
+							#Assigner à IAChoosed la valeur True
+						#Sinon Si board[0][1] et board[1][2] sont égal à 'O', Alors...
 							#Assigner à IAChoice[0] la valeur 0
 							#Assigner à IAChoice[1] la valeur 2
-						#Sinon Si board[2][0], board[2][1] et board[1][0] sont égal à ' ', Alors...
+							#Assigner à IAChoosed la valeur True
+						#Sinon Si board[2][1] et board[1][0] sont égal à 'O', Alors...
 							#Assigner à IAChoice[0] la valeur 2
 							#Assigner à IAChoice[1] la valeur 0
-						#Sinon Si board[2][2], board[2][1] et board[1][2] sont égal à ' ', Alors...
+							#Assigner à IAChoosed la valeur True
+						#Sinon Si board[2][1] et board[1][2] sont égal à 'O', Alors...
 							#Assigner à IAChoice[0] la valeur 2
 							#Assigner à IAChoice[1] la valeur 2
+							#Assigner à IAChoosed la valeur True
 
-						#Sinon : le Joueur ne s'est pas mis en danger, Alors...
-							#Tant que isValidChoice est à False, Alors...
-								#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
-								#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
-								#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ' et IAChoice est différent de toutes les listes suivante : [0, 0] [0, 2] [2, 0] [2, 2], Alors...
-									#Assigner à isValidChoice la valeur True
+					#Sinon, Alors...
+						#Tant que isValidChoice est à False, Alors...
+							#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+							#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
+								#Assigner à isValidChoice la valeur True
+								#Assigner à IAChoosed la valeur True
 
-					#Sinon : Aucune occasion de victoire ou défaite assurée n'est présente, Alors...
+				#Sinon Si spaceCounter est égal à 5 et IAChoosed est égal False, Alors...
+					#Si board[0][0], board[0][1] et board[1][0] sont égal à ' ', Alors...
+						#Assigner à IAChoice[0] la valeur 0
+						#Assigner à IAChoice[1] la valeur 0
+					#Sinon Si board[0][2], board[0][1] et board[1][2] sont égal à ' ', Alors...
+						#Assigner à IAChoice[0] la valeur 0
+						#Assigner à IAChoice[1] la valeur 2
+					#Sinon Si board[2][0], board[2][1] et board[1][0] sont égal à ' ', Alors...
+						#Assigner à IAChoice[0] la valeur 2
+						#Assigner à IAChoice[1] la valeur 0
+					#Sinon Si board[2][2], board[2][1] et board[1][2] sont égal à ' ', Alors...
+						#Assigner à IAChoice[0] la valeur 2
+						#Assigner à IAChoice[1] la valeur 2
+
+					#Sinon : le Joueur ne s'est pas mis en danger, Alors...
 						#Tant que isValidChoice est à False, Alors...
 							#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
 							#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
 							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ' et IAChoice est différent de toutes les listes suivante : [0, 0] [0, 2] [2, 0] [2, 2], Alors...
 								#Assigner à isValidChoice la valeur True
+
+				#Sinon : Aucune occasion de victoire ou défaite assurée n'est présente, Alors...
+					#Tant que isValidChoice est à False, Alors...
+						#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+						#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+						#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ' et IAChoice est différent de toutes les listes suivante : [0, 0] [0, 2] [2, 0] [2, 2], Alors...
+							#Assigner à isValidChoice la valeur True
 								
 			#  ON APPLIQUE LA DÉCISION DE L'IA
 
 
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'O', IAChoice)
 			#Assigner à turnOf la valeur 1
+			turnOf = 1
 		#Assigner à isValidChoice la valeur False
+		isValidChoice = False
 		#Assigner à IAChoosed la valeur False
+		IAChoosed = False
 		#Assigner à gameOver le retour de l'appel de la fonction morpionEndChecker(board)
+		gameOver = morpionEndChecker(board)
 	#Afficher un message de retour au menu
 
 
@@ -535,9 +644,9 @@ def morpionVsCpu():
 #Définir une fonction morpionVsPlayer qui permet de jouer à une partie de morpion contre un autre joueur
 def morpionVsPlayer():
 	#Initialiser un tableau 2D board de format 3 par 3 avec uniquement des cases comportant ' '
-	board = [[' ']*3 for i in range(3)]
+	board = [[' ' for i in range(3)] for i in range(3)]
 	#Initialiser une variable turnOf avec le retour de randint(1, 2)
-	turnOf = randint(0, 2)
+	turnOf = randint(1, 2)
 	#Initialiser une variable gameOver à False
 	gameOver = False
 	#Initialiser une liste player1Choice à [None, None]
@@ -551,7 +660,7 @@ def morpionVsPlayer():
 		#Si turnOf est égal à 1, Alors...
 		if turnOf == 1:
 			#Vider l'écran de la console
-			clear()
+			
 			#Afficher "C'est au tour du Joueur 1 !"
 			print("C'est au tour du Joueur 1 !")
 			#Appeler la fonction morpionPrintBoard(board)
@@ -584,7 +693,7 @@ def morpionVsPlayer():
 		#Sinon : turnOf est égal à 2, Alors...
 		else:
 			#Vider l'écran de la console
-			clear()
+			
 			#Afficher "C'est au tour du Joueur 2 !"
 			print("C'est au Joueur 2 !")
 			#Tant que isValidChoice est à False, Alors...
@@ -606,7 +715,7 @@ def morpionVsPlayer():
 					#Assigner à isValidChoice la valeur True
 					isValidChoice = True
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'X', playerChoice2)
-			board = morpionTurnManager(board)
+			board = morpionTurnManager(board, 'X', playerChoice2)
 			#Appeler la fonction morpionPrintBoard(board)
 			morpionPrintBoard(board)
 			#Assigner à turnOf la valeur 1
@@ -630,7 +739,7 @@ def morpion():
 	menuNav = None
 
 	#Vider l'écran de la console
-	clear()
+	
 
 	#Tant que gameClose est égal à False, Alors...
 	while gameClose == False:
@@ -676,3 +785,5 @@ def morpion():
 	print("fermeture...")
 
 #FIN
+
+morpion()
