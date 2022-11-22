@@ -118,23 +118,6 @@ def morpionPrintBoard(board):
 	#Afficher "╚═╩═╩═╝"
 	print("╚═╩═╩═╝")
 
-#Définir une fonction morpionBlinkBoard(board) qui permet d'afficher correctement une partie de morpion avec des traits plus fin
-def morpionBlinkBoard(board):
-	#Initialiser un tableau 2D lighterBoard égal à board
-	lighterBoard = board
-	#Pour x dans 0 à 2, Faire...
-	for x in range(0, 3):
-		#Pour y dans 0 à 2, Faire...
-		for y in range(0, 3):
-			#Si lighterBoard[x][y] est égal à 'O', Alors...
-			if lighterBoard[x][y] == 'O':
-				#Assigner à lighterBoard[x][y] le caractère '○'
-				lighterBoard[x][y] = '○'
-			#Sinon Si lighterBoard[x][y] est égal à 'X', Alors...
-			if lighterBoard[x][y] == 'X':
-				#Assigner à ligtherBoard[x][y] le caractère '×'
-				lighterBoard[x][y] = '×'
-
 	#Pour i de 0 jusqu'à 4, Faire...
 	for i in range(3):
 		#Afficher "┌─┬─┬─┐"
