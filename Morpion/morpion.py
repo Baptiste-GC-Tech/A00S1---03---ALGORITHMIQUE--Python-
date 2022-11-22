@@ -118,41 +118,6 @@ def morpionPrintBoard(board):
 	#Afficher "╚═╩═╩═╝"
 	print("╚═╩═╩═╝")
 
-	#Pour i de 0 jusqu'à 4, Faire...
-	for i in range(3):
-		#Afficher "┌─┬─┬─┐"
-		print("┌─┬─┬─┐")
-		#Afficher "│" + str(board[0][0]) + "│" + str(board[0][1]) + "│" + str(board[0][2]) + "│"
-		print("│" + str(board[0][0]) + "│" + str(board[0][1]) + "│" + str(board[0][2]) + "│")
-		#Afficher "├─┼─┼─┤"
-		print("├─┼─┼─┤")
-		#Afficher "│" + str(board[1][0]) + "│" + str(board[1][1]) + "│" + str(board[1][2]) + "│"
-		print("│" + str(board[1][0]) + "│" + str(board[1][1]) + "│" + str(board[1][2]) + "│")
-		#Afficher "├─┼─┼─┤"
-		print("├─┼─┼─┤")
-		#Afficher "│" + str(board[2][0]) + "│" + str(board[2][1]) + "│" + str(board[2][2]) + "│"
-		print("│" + str(board[2][0]) + "│" + str(board[2][1]) + "│" + str(board[2][2]) + "│")
-		#Afficher "└─┴─┴─┘"
-		print("└─┴─┴─┘")
-		
-		#Attendre 400 ms
-		sleep(0.17)
-		#Vider l'écran de la console
-		
-
-		#Appeler la fonction qui affiche la table normalement
-		morpionPrintBoard(board)
-
-		#Attendre 400 ms
-		sleep(0.17)
-		#Vider l'écran de la console
-		
-
-		#Incrémenter i de 1
-		i = i + 1
-
-
-
 #Définir une fonction morpionVsCpu() qui permet de jouer à une partie de morpion avec l'ordinateur
 def morpionVsCpu():
 	#Initialiser un tableau 2D board de format 3 par 3 avec uniquement des cases comportant ' '
