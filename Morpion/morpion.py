@@ -288,8 +288,6 @@ def morpionVsIA():
 			#Vider l'écran de la console
 			#Afficher "C'est au tour du Joueur !"
 			print("C'est au tour du Joueur !")
-			#Appeler la fonction morpionPrintBoard(board)
-			morpionPrintBoard(board)
 			#Tant que isValidChoice est à False, Alors...
 			while not isValidChoice:
 				#Assigner à playerChoice[0] le retour de l'appel de la fonction input("Quel ligne visez-vous ? ")
@@ -310,29 +308,13 @@ def morpionVsIA():
 					isValidChoice = True
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'O', playerChoice)
 			board = morpionTurnManager(board, 'O', playerChoice)
+			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Assigner à turnOf la valeur 2
 			turnOf = 2
 
 		#Sinon : turnOf est égal à 2, Alors...
 		else:
-
-
-			print("C'est au tour du Joueur \"2\" ! l'IA va vérifier tho")
-			morpionPrintBoard(board)
-			while not isValidChoice:
-				playerChoice[0] = int(input("Quel ligne visez-vous ? "))
-				playerChoice[1] = int(input("Quel colonne visez-vous ? "))
-				if (playerChoice[0] < 0 or playerChoice[0] > 2) or (playerChoice[1] < 0 or playerChoice[1] > 2):
-					print("     !! ERR !!\nLa position spécifié n'est pas valide...\n\n")
-				elif board[playerChoice[0]][playerChoice[1]] != ' ':
-					print("     !! ERR !!\nLa case spécifié est occupée...\n\n")
-				else:
-					isValidChoice = True
-			board = morpionTurnManager(board, 'X', playerChoice)
-
-
-
-
 			#Afficher "C'est au tour de l'IA !"
 			print("C'est au tour de l'IA !")
 
@@ -366,10 +348,14 @@ def morpionVsIA():
 				if Ocounter == 2 and Xcounter == 0:
 					#Ajouter dans OOportunity le string "r" + str(x+1)
 					OOportunity.append("r" + str(x+1))
+					print("   ~ OOportunité en r"+str(x+1))
+					sleep(1.5)
 				#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
 				elif Xcounter == 2 and Ocounter == 0:
 					#Ajouter dans XXportunity le string "r" + str(x+1)
 					XXportunity.append("r" + str(x+1))
+					print("   ~ XXportunité en r"+str(x+1))
+					sleep(1.5)
 
 			#Pour y dans 0 à 2, Faire...
 			for y in range(0, 3):
@@ -391,11 +377,13 @@ def morpionVsIA():
 				if Ocounter == 2 and Xcounter == 0:
 					#Ajouter dans OOportunity le string "c" + str(y+1)
 					OOportunity.append("c" + str(y+1))
-				#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
+					print("   ~ OOportunité en c"+str(y+1))
+					sleep(1.5)				#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
 				elif Xcounter == 2 and Ocounter == 0:
 					#Ajouter dans XXportunity le string "c" + str(y+1)
 					XXportunity.append("c" + str(y+1))
-
+					print("   ~ XXportunité en c"+str(y+1))
+					sleep(1.5)
 			#Assigner à Ocounter la valeur 0
 			Ocounter = 0
 			#Assigner à Xcounter la valeur 0
@@ -414,10 +402,14 @@ def morpionVsIA():
 			if Ocounter == 2 and Xcounter == 0:
 				#Ajouter à OOportunity le string "d1"
 				OOportunity.append("d1")
+				print("   ~ OOportunité en d1")
+				sleep(1.5)
 			#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
 			if Xcounter == 2 and Ocounter == 0:
 				#Ajouter à XXportunity le string "d1"
 				XXportunity.append("d1")
+				print("   ~ XXportunité en d1")
+				sleep(1.5)
 
 			#Assigner à Ocounter la valeur 0
 			Ocounter = 0
@@ -451,204 +443,353 @@ def morpionVsIA():
 			if Ocounter == 2 and Xcounter == 0:
 				#Ajouter à OOportunity le string "d2"
 				OOportunity.append("d2")
+				print("   ~ OOportunité en d2")
+				sleep(1.5)
 			#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
 			elif Xcounter == 2 and Ocounter == 0:
 				#Ajouter à XXportunity le string "d2"
 				XXportunity.append("d2")
+				print("   ~ XXportunité en d2")
+				sleep(1.5)
 
 			#  SAISIE D'UNE OPPORTUNITÉ DE VICTOIRE S'IL Y A
 
-
 			#Si XXportunity est différente de [], Alors...
-				#Assigner à IAChoosed (pour éviter de créer encore une autre variable) le retour de l'appel de la fonction randint(0, len(XXportunity)-1)
+			if XXportunity != []:
+				print("   ~ JE RENTRE DANS LE IF WOO")
+				#Assigner à IAChoosed le retour de l'appel de la fonction randint(0, len(XXportunity)-1)
+				IAChoosed = randint(0, len(XXportunity) - 1)
+				print("   ~ XXportunité saisie :")
+				print(XXportunity[IAChoosed])
+				sleep(1.5)
 
 				#Si XXportunity[IAChoosed][0] est égal à 'r', Alors...
+				if XXportunity[IAChoosed][0] == 'r':
 					#Pour y dans 0 à 2, Faire...
-						#Si board[int(XXportunity[IAChoosed][1])][y] est égal à ' ', Alors...
+					for y in range(0, 3):
+						#Si board[int(XXportunity[IAChoosed][1]) - 1][y] est égal à ' ', Alors...
+						if board[int(XXportunity[IAChoosed][1]) - 1][y] == ' ':
 							#Assigner à IAChoice[0] la valeur int(XXportunity[IAChoosed][1]) - 1
+							IAChoice[0] = int(XXportunity[IAChoosed][1]) - 1
 							#Assigner à IAChoice[1] la valeur y
+							IAChoice[1] = y
 							#Sortir de la boucle
+							break
 
 				#Si XXportunity[IAChoosed][0] est égal à 'c', Alors...
+				if XXportunity[IAChoosed][0] == 'c':
 					#Pour x dans 0 à 2, Faire...
-						#Si board[x][int(XXportunity[IAChoosed][1])] est égal à ' ', Alors...
+					for x in range(0, 3):
+						#Si board[x][int(XXportunity[IAChoosed][1]) - 1] est égal à ' ', Alors...
+						if board[x][int(XXportunity[IAChoosed][1]) - 1] == ' ':
 							#Assigner à IAChoice[0] la valeur x
+							IAChoice[0] = x
 							#Assigner à IAChoice[1] la valeur int(XXportunity[IAChoosed][1]) - 1
+							IAChoice[1] = int(XXportunity[IAChoosed][1]) - 1
 							#Sortir de la boucle
+							break
 
 				#Si XXportunity[IAChoosed] est égal à "d1", Alors...
+				if XXportunity[IAChoosed] == "d1":
 					#Pour xy dans 0 à 2, Faire...
+					for xy in range(0, 3):
 						#Si board[xy][xy] est égal à ' ', Alors...
+						if board[xy][xy] == ' ':
 							#Assigner à IAChoice[0] la valeur xy
+							IAChoice[0] = xy
 							#Assigner à IAChoice[1] la valeur xy
+							IAChoice[1] = xy
 							#Sortir de la boucle
+							break
 
 				#Si XXportunity[IAChoosed] est égal à "d2", Alors...
+				if XXportunity[IAChoosed] == "d2":
 					#Si board[0][2] est égal à ' ', Alors...
+					if board[0][2] == ' ':
 						#Assigner à IAChoice[0] la valeur 0
+						IAChoice[0] = 0
 						#Assigner à IAChoice[1] la valeur 2
-						#Sortir de la boucle
+						IAChoice[1] = 2
 					#Sinon Si board[1][1] est égal à ' ', Alors...
+					elif board[1][1] == ' ':
 						#Assigner à IAChoice[0] la valeur 1
+						IAChoice[0] = 1
 						#Assigner à IAChoice[1] la valeur 1
-						#Sortir de la boucle
+						IAChoice[1] = 1
 					#Sinon Si board[2][0] est égal à ' ', Alors...
+					else:
 						#Assigner à IAChoice[0] la valeur 2
+						IAChoice[0] = 2
 						#Assigner à IAChoice[1] la valeur 0
-						#Sortir de la boucle
-
-				#Assigner à IAChoosed la valeur True
+						IAChoice[1] = 0
 
 			#  CONTRE D'UNE OPPORTUNITÉ DE DÉFAITE S'IL Y A
 
-
 			#Sinon Si OOportunity est différente de [], Alors...
-				#Assigner à IAChoosed (pour éviter de créer encore une autre variable) le retour de l'appel de la fonction randint(0, len(OOportunity)-1)
+			elif OOportunity != []:
+				print("   ~ JE RENTRE DANS LE ELIF WOO")
+				#Assigner à IAChoosed le retour de l'appel de la fonction randint(0, len(OOportunity)-1)
+				IAChoosed = randint(0, len(OOportunity) - 1)
+				print(IAChoosed)
+				print("   ~ OOportunité bloquée :")
+				print(OOportunity[IAChoosed])
+				sleep(1.5)
 
 				#Si OOportunity[IAChoosed][0] est égal à 'r', Alors...
+				if OOportunity[IAChoosed][0] == 'r':
 					#Pour y dans 0 à 2, Faire...
-						#Si board[int(OOportunity[IAChoosed][1])][y] est égal à ' ', Alors...
+					for y in range(0, 3):
+						#Si board[int(OOportunity[IAChoosed][1]) - 1][y] est égal à ' ', Alors...
+						if board[int(OOportunity[IAChoosed][1]) - 1][y] == ' ':
 							#Assigner à IAChoice[0] la valeur int(OOportunity[IAChoosed][1]) - 1
+							IAChoice[0] = int(OOportunity[IAChoosed][1]) - 1
 							#Assigner à IAChoice[1] la valeur y
+							IAChoice[1] = y
 							#Sortir de la boucle
+							break
 
 				#Si OOportunity[IAChoosed][0] est égal à 'c', Alors...
+				if OOportunity[IAChoosed][0] == 'c':
 					#Pour x dans 0 à 2, Faire...
-						#Si board[x][int(OOportunity[IAChoosed][1])] est égal à ' ', Alors...
+					for x in range(0, 3):
+						#Si board[x][int(OOportunity[IAChoosed][1]) - 1] est égal à ' ', Alors...
+						if board[x][int(OOportunity[IAChoosed][1]) - 1] == ' ':
 							#Assigner à IAChoice[0] la valeur x
+							IAChoice[0] = x
 							#Assigner à IAChoice[1] la valeur int(OOportunity[IAChoosed][1]) - 1
+							IAChoice[1] = int(OOportunity[IAChoosed][1]) - 1
 							#Sortir de la boucle
+							break
 
 				#Si OOportunity[IAChoosed] est égal à "d1", Alors...
+				if OOportunity[IAChoosed] == "d1":
 					#Pour xy dans 0 à 2, Faire...
+					for xy in range(0, 3):
 						#Si board[xy][xy] est égal à ' ', Alors...
+						if board[xy][xy] == ' ':
 							#Assigner à IAChoice[0] la valeur xy
+							IAChoice[0] = xy
 							#Assigner à IAChoice[1] la valeur xy
+							IAChoice[1] = xy
 							#Sortir de la boucle
+							break
 
 				#Si OOportunity[IAChoosed] est égal à "d2", Alors...
+				if OOportunity[IAChoosed] == "d2":
 					#Si board[0][2] est égal à ' ', Alors...
+					if board[0][2] == ' ':
 						#Assigner à IAChoice[0] la valeur 0
+						IAChoice[0] = 0
 						#Assigner à IAChoice[1] la valeur 2
-						#Sortir de la boucle
+						IAChoice[1] = 2
 					#Sinon Si board[1][1] est égal à ' ', Alors...
+					elif board[1][1] == ' ':
 						#Assigner à IAChoice[0] la valeur 1
+						IAChoice[0] = 1
 						#Assigner à IAChoice[1] la valeur 1
-						#Sortir de la boucle
-					#Sinon Si board[2][0] est égal à ' ', Alors...
+						IAChoice[1] = 1
+					#Sinon : board[2][0] est égal à ' ', Alors...
+					else:
 						#Assigner à IAChoice[0] la valeur 2
+						IAChoice[0] = 2
 						#Assigner à IAChoice[1] la valeur 0
-						#Sortir de la boucle
-
-				#Assigner à IAChoosed la valeur True
+						IAChoice[1] = 0
 
 			#  ALGORITHME DE STRATÉGIE PARFAITE SI AUCUN DES DEUX
 
 
 			#Sinon, Alors...
+			else:
 				#Assigner à spaceCounter la valeur 0
+				spaceCounter = 0
 				#Pour x dans 0 à 2, Faire...
+				for x in range(0, 3):
 					#Pour y dans 0 à 2, Faire...
+					for y in range(0, 3):
 						#Si board[x][y] est égal à ' ', Alors...
+						if board[x][y] == ' ':
 							#Incrémenter spaceCounter de 1
+							spaceCounter = spaceCounter + 1
+				print("   ~ Trouvé "+str(spaceCounter)+" espace vide")
+				sleep(1.5)
 
 				#Si board[1][1] est égal à ' ', Alors...
+				if board[1][1] == ' ':
 					#Assigner à IAChoice[0] la valeur 1
+					IAChoice[0] = 1
 					#Assigner à IAChoice[1] la valeur 1
-					#Assigner à IAChoosed la valeur True
+					IAChoice[1] = 1
+					print("   ~ Centre récupérer")
+					sleep(1.5)
 
-				#Sinon Si spaceCounter est égal à 8 et IAChoosed est égal à False, Alors...
+				#Sinon Si spaceCounter est égal à 8, Alors...
+				elif spaceCounter == 8:
+					print("   ~ MODE DÉFENSE : Jeu en croix penchée")
+					sleep(1.5)
 					#Tant que isValidChoice est à False, Alors...
+					while not isValidChoice:
 						#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+						IAChoice[0] = randint(0, 2)
 						#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+						IAChoice[1] = randint(0, 2)
 						#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ' et IAChoice est différente de toutes les listes suivantes : [0, 1] [1, 0] [1, 2] [2, 1], Alors...
+						if board[IAChoice[0]][IAChoice[1]] == ' ' and (IAChoice != [0, 1] and IAChoice != [1, 0] and IAChoice != [1, 2] and IAChoice != [2, 1]):
 							#Assigner à isValidChoice la valeur True
-							#Assigner à IAChoosed la valeur True
+							isValidChoice = True
 
-				#Sinon Si spaceCounter est égal à 7 et IAChoosed est égal à False, Alors...
+				#Sinon Si spaceCounter est égal à 7, Alors...
+				elif spaceCounter == 7:
+					print("   ~ MODE ATTAQUE : Jeu sur la même ligne/colonne que le joueur (croix droite) OU random (croix penchée)")
+					sleep(1.5)
 					#Si board[0][1] ou board[2][1] est égal à 'O', Alors...
+					if board[0][1] == 'O' or board[2][1] == 'O':
 						#Tant que isValidChoice est à False, Alors...
+						while not isValidChoice:
 							#Assigner à IAChoice[0] la valeur playerChoice[0]
+							IAChoice[0] = playerChoice[0]
 							#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+							IAChoice[1] = randint(0, 2)
 							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
+							if board[IAChoice[0]][IAChoice[1]] == ' ':
 								#Assigner à isValidChoice la valeur True
-								#Assigner à IAChoosed la valeur True
+								isValidChoice = True
 
-					#Si board[1][0] ou board[1][2] est égal à 'O', Alors...
+					#Sinon Si board[1][0] ou board[1][2] est égal à 'O', Alors...
+					elif board[1][0] == 'O' or board[1][2] == 'O':
 						#Tant que isValidChoice est à False, Alors...
+						while not isValidChoice:
 							#Assigner à IAChoice[0] la retour de l'appel de la fonction randint(0, 2)
+							IAChoice[0] = randint(0, 2)
 							#Assigner à IAChoice[1] la valeur playerChoice[1]
+							IAChoice[1] = playerChoice[1]
 							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
+							if board[IAChoice[0]][IAChoice[1]] == ' ':
 								#Assigner à isValidChoice la valeur True
-								#Assigner à IAChoosed la valeur True
+								isValidChoice = True
 
 					#Sinon : le Joueur à joué dans les diagonales, Alors...
+					else:
 						#Tant que isValidChoice est à False, Alors...
+						while not isValidChoice:
 							#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+							IAChoice[0] = randint(0, 2)
 							#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+							IAChoice[1] = randint(0, 2)
 							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
+							if board[IAChoice[0]][IAChoice[1]] == ' ':
 								#Assigner à isValidChoice la valeur True
-								#Assigner à IAChoosed la valeur True
+								isValidChoice = True
 
-				#Sinon Si spaceCounter est égal à 6 et IAChoosed est égal à False, Alors...
+				#Sinon Si spaceCounter est égal à 6, Alors...
+				elif spaceCounter == 6:
+					print("   ~ MODE DÉFENSE : Jeu en dans le coin proche du joueur pour éviter un setup (croix droite x2) OU random croix penchée")
+					sleep(1.5)
 					#Si board[1][1] est égal à 'X', Alors...
+					if board[1][1] == 'X':
 						#Si board[0][1] et board[1][0] sont égal à 'O', Alors...
+						if board[0][1] == 'O' and board[1][0] == 'O':
 							#Assigner à IAChoice[0] la valeur 0
+							IAChoice[0] = 0
 							#Assigner à IAChoice[1] la valeur 0
-							#Assigner à IAChoosed la valeur True
+							IAChoice[1] = 0
 						#Sinon Si board[0][1] et board[1][2] sont égal à 'O', Alors...
+						elif board[0][1] == 'O' and board[1][2] == 'O':
 							#Assigner à IAChoice[0] la valeur 0
+							IAChoice[0] = 0
 							#Assigner à IAChoice[1] la valeur 2
-							#Assigner à IAChoosed la valeur True
+							IAChoice[1] = 2
 						#Sinon Si board[2][1] et board[1][0] sont égal à 'O', Alors...
+						elif board[2][1] == 'O' and board[1][0] == 'O':
 							#Assigner à IAChoice[0] la valeur 2
+							IAChoice[0] = 2
 							#Assigner à IAChoice[1] la valeur 0
-							#Assigner à IAChoosed la valeur True
-						#Sinon Si board[2][1] et board[1][2] sont égal à 'O', Alors...
+							IAChoice[1] = 0
+						#Sinon : board[2][1] et board[1][2] sont égal à 'O', Alors...
+						else:
 							#Assigner à IAChoice[0] la valeur 2
+							IAChoice[0] = 2
 							#Assigner à IAChoice[1] la valeur 2
-							#Assigner à IAChoosed la valeur True
+							IAChoice[1] = 2
 
 					#Sinon, Alors...
+					else:
 						#Tant que isValidChoice est à False, Alors...
+						while not isValidChoice:
 							#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+							IAChoice[0] = randint(0, 2)
 							#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+							IAChoice[1] = randint(0, 2)
 							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ', Alors...
+							if board[IAChoice[0]][IAChoice[1]] == ' ' and (IAChoice != [0, 1] and IAChoice != [1, 0] and IAChoice != [1, 2] and IAChoice != [2, 1]):
 								#Assigner à isValidChoice la valeur True
-								#Assigner à IAChoosed la valeur True
+								isValidChoice = True
 
-				#Sinon Si spaceCounter est égal à 5 et IAChoosed est égal False, Alors...
+				#Sinon Si spaceCounter est égal à 5, Alors...
+				elif spaceCounter == 5:
+					print("   ~ MODE ATTAQUE : Jeu dans un coin sans voisin pour setup le joueur OU pas dans les coins (pas setupable)")
+					sleep(1.5)
 					#Si board[0][0], board[0][1] et board[1][0] sont égal à ' ', Alors...
+					if board[0][0] == ' ' and board[0][1] == ' ' and board[1][0] == ' ':
 						#Assigner à IAChoice[0] la valeur 0
+						IAChoice[0] = 0
 						#Assigner à IAChoice[1] la valeur 0
+						IAChoice[1] = 0
 					#Sinon Si board[0][2], board[0][1] et board[1][2] sont égal à ' ', Alors...
+					elif board[0][2] == ' ' and board[0][1] == ' ' and board[1][2] == ' ':
 						#Assigner à IAChoice[0] la valeur 0
+						IAChoice[0] = 0
 						#Assigner à IAChoice[1] la valeur 2
+						IAChoice[1] = 2
 					#Sinon Si board[2][0], board[2][1] et board[1][0] sont égal à ' ', Alors...
+					elif board[2][0] == ' ' and board[2][1] == ' ' and board[1][0] == ' ':
 						#Assigner à IAChoice[0] la valeur 2
+						IAChoice[0] = 2
 						#Assigner à IAChoice[1] la valeur 0
+						IAChoice[1] = 0
 					#Sinon Si board[2][2], board[2][1] et board[1][2] sont égal à ' ', Alors...
+					elif board[2][2] == ' ' and board[2][1] == ' ' and board[1][2] == ' ':
 						#Assigner à IAChoice[0] la valeur 2
+						IAChoice[0] = 2
 						#Assigner à IAChoice[1] la valeur 2
+						IAChoice[1] = 2
 
 					#Sinon : le Joueur ne s'est pas mis en danger, Alors...
+					else:
 						#Tant que isValidChoice est à False, Alors...
+						while not isValidChoice:
 							#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+							IAChoice[0] = randint(0, 2)
 							#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+							IAChoice[1] = randint(0, 2)
 							#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ' et IAChoice est différent de toutes les listes suivante : [0, 0] [0, 2] [2, 0] [2, 2], Alors...
+							if board[IAChoice[0]][IAChoice[1]] == ' ' and (IAChoice != [0, 0] and IAChoice != [0, 2] and IAChoice != [2, 0] and IAChoice != [2, 2]):
 								#Assigner à isValidChoice la valeur True
+								isValidChoice = True
 
 				#Sinon : Aucune occasion de victoire ou défaite assurée n'est présente, Alors...
+				else:
+					print("   ~ MODE RANDOM")
+					sleep(1.5)
 					#Tant que isValidChoice est à False, Alors...
+					while not isValidChoice:
 						#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
+						IAChoice[0] = randint(0, 2)
 						#Assigner à IAChoice[1] le retour de l'appel de la fonction randint(0, 2)
+						IAChoice[1] = randint(0, 2)
 						#Si board[IAChoice[0]][IAChoice[1]] est égal à ' ' et IAChoice est différent de toutes les listes suivante : [0, 0] [0, 2] [2, 0] [2, 2], Alors...
+						if board[IAChoice[0]][IAChoice[1]] == ' ':
 							#Assigner à isValidChoice la valeur True
+							isValidChoice = True
 								
 			#  ON APPLIQUE LA DÉCISION DE L'IA
 
 
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'O', IAChoice)
+			print("   ~ IAChoice, mesdames et messieurs")
+			print(IAChoice)
+			board = morpionTurnManager(board, 'X', IAChoice)
+			#Appeler la fonction morpionPrintBoard(board)
+			morpionPrintBoard(board)
 			#Assigner à turnOf la valeur 1
 			turnOf = 1
 		#Assigner à isValidChoice la valeur False
@@ -804,6 +945,6 @@ def morpion():
 	print("fermeture..")
 	print("fermeture...")
 
-#FIN
+#
 
 morpion()
