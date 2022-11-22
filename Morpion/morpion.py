@@ -331,10 +331,14 @@ def morpionVsIA():
 				if Ocounter == 2 and Xcounter == 0:
 					#Ajouter dans OOportunity le string "r" + str(x+1)
 					OOportunity.append("r" + str(x+1))
+					print("   ~ OOportunité en r"+str(x+1))
+					sleep(1.5)
 				#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
 				elif Xcounter == 2 and Ocounter == 0:
 					#Ajouter dans XXportunity le string "r" + str(x+1)
 					XXportunity.append("r" + str(x+1))
+					print("   ~ XXportunité en r"+str(x+1))
+					sleep(1.5)
 
 			#Pour y dans 0 à 2, Faire...
 			for y in range(0, 3):
@@ -355,10 +359,14 @@ def morpionVsIA():
 				#Si Ocounter est égal à 2 et Xcounter est égal à 0, Alors...
 				if Ocounter == 2 and Xcounter == 0:
 					#Ajouter dans OOportunity le string "c" + str(y+1)
-					OOportunity.append("c" + str(y+1))			#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
+					OOportunity.append("c" + str(y+1))
+					print("   ~ OOportunité en c"+str(y+1))
+					sleep(1.5)				#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
 				elif Xcounter == 2 and Ocounter == 0:
 					#Ajouter dans XXportunity le string "c" + str(y+1)
 					XXportunity.append("c" + str(y+1))
+					print("   ~ XXportunité en c"+str(y+1))
+					sleep(1.5)
 			#Assigner à Ocounter la valeur 0
 			Ocounter = 0
 			#Assigner à Xcounter la valeur 0
@@ -377,10 +385,14 @@ def morpionVsIA():
 			if Ocounter == 2 and Xcounter == 0:
 				#Ajouter à OOportunity le string "d1"
 				OOportunity.append("d1")
+				print("   ~ OOportunité en d1")
+				sleep(1.5)
 			#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
 			if Xcounter == 2 and Ocounter == 0:
 				#Ajouter à XXportunity le string "d1"
 				XXportunity.append("d1")
+				print("   ~ XXportunité en d1")
+				sleep(1.5)
 
 			#Assigner à Ocounter la valeur 0
 			Ocounter = 0
@@ -414,17 +426,25 @@ def morpionVsIA():
 			if Ocounter == 2 and Xcounter == 0:
 				#Ajouter à OOportunity le string "d2"
 				OOportunity.append("d2")
+				print("   ~ OOportunité en d2")
+				sleep(1.5)
 			#Sinon Si Xcounter est égal à 2 et Ocounter est égal à 0, Alors...
 			elif Xcounter == 2 and Ocounter == 0:
 				#Ajouter à XXportunity le string "d2"
 				XXportunity.append("d2")
+				print("   ~ XXportunité en d2")
+				sleep(1.5)
 
 			#  SAISIE D'UNE OPPORTUNITÉ DE VICTOIRE S'IL Y A
 
 			#Si XXportunity est différente de [], Alors...
 			if XXportunity != []:
+				print("   ~ JE RENTRE DANS LE IF WOO")
 				#Assigner à IAChoosed le retour de l'appel de la fonction randint(0, len(XXportunity)-1)
 				IAChoosed = randint(0, len(XXportunity) - 1)
+				print("   ~ XXportunité saisie :")
+				print(XXportunity[IAChoosed])
+				sleep(1.5)
 
 				#Si XXportunity[IAChoosed][0] est égal à 'r', Alors...
 				if XXportunity[IAChoosed][0] == 'r':
@@ -490,8 +510,13 @@ def morpionVsIA():
 
 			#Sinon Si OOportunity est différente de [], Alors...
 			elif OOportunity != []:
+				print("   ~ JE RENTRE DANS LE ELIF WOO")
 				#Assigner à IAChoosed le retour de l'appel de la fonction randint(0, len(OOportunity)-1)
 				IAChoosed = randint(0, len(OOportunity) - 1)
+				print(IAChoosed)
+				print("   ~ OOportunité bloquée :")
+				print(OOportunity[IAChoosed])
+				sleep(1.5)
 
 				#Si OOportunity[IAChoosed][0] est égal à 'r', Alors...
 				if OOportunity[IAChoosed][0] == 'r':
@@ -568,6 +593,8 @@ def morpionVsIA():
 						if board[x][y] == ' ':
 							#Incrémenter spaceCounter de 1
 							spaceCounter = spaceCounter + 1
+				print("   ~ Trouvé "+str(spaceCounter)+" espace vide")
+				sleep(1.5)
 
 				#Si board[1][1] est égal à ' ', Alors...
 				if board[1][1] == ' ':
@@ -575,9 +602,13 @@ def morpionVsIA():
 					IAChoice[0] = 1
 					#Assigner à IAChoice[1] la valeur 1
 					IAChoice[1] = 1
+					print("   ~ Centre récupérer")
+					sleep(1.5)
 
 				#Sinon Si spaceCounter est égal à 8, Alors...
 				elif spaceCounter == 8:
+					print("   ~ MODE DÉFENSE : Jeu en croix penchée")
+					sleep(1.5)
 					#Tant que isValidChoice est à False, Alors...
 					while not isValidChoice:
 						#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
@@ -591,6 +622,8 @@ def morpionVsIA():
 
 				#Sinon Si spaceCounter est égal à 7, Alors...
 				elif spaceCounter == 7:
+					print("   ~ MODE ATTAQUE : Jeu sur la même ligne/colonne que le joueur (croix droite) OU random (croix penchée)")
+					sleep(1.5)
 					#Si board[0][1] ou board[2][1] est égal à 'O', Alors...
 					if board[0][1] == 'O' or board[2][1] == 'O':
 						#Tant que isValidChoice est à False, Alors...
@@ -632,6 +665,8 @@ def morpionVsIA():
 
 				#Sinon Si spaceCounter est égal à 6, Alors...
 				elif spaceCounter == 6:
+					print("   ~ MODE DÉFENSE : Jeu en dans le coin proche du joueur pour éviter un setup (croix droite x2) OU random croix penchée")
+					sleep(1.5)
 					#Si board[1][1] est égal à 'X', Alors...
 					if board[1][1] == 'X':
 						#Si board[0][1] et board[1][0] sont égal à 'O', Alors...
@@ -674,6 +709,8 @@ def morpionVsIA():
 
 				#Sinon Si spaceCounter est égal à 5, Alors...
 				elif spaceCounter == 5:
+					print("   ~ MODE ATTAQUE : Jeu dans un coin sans voisin pour setup le joueur OU pas dans les coins (pas setupable)")
+					sleep(1.5)
 					#Si board[0][0], board[0][1] et board[1][0] sont égal à ' ', Alors...
 					if board[0][0] == ' ' and board[0][1] == ' ' and board[1][0] == ' ':
 						#Assigner à IAChoice[0] la valeur 0
@@ -714,6 +751,8 @@ def morpionVsIA():
 
 				#Sinon : Aucune occasion de victoire ou défaite assurée n'est présente, Alors...
 				else:
+					print("   ~ MODE RANDOM")
+					sleep(1.5)
 					#Tant que isValidChoice est à False, Alors...
 					while not isValidChoice:
 						#Assigner à IAChoice[0] le retour de l'appel de la fonction randint(0, 2)
@@ -729,6 +768,8 @@ def morpionVsIA():
 
 
 			#Assigner à board le retour de l'appel de la fonction morpionTurnManager(board, 'O', IAChoice)
+			print("   ~ IAChoice, mesdames et messieurs")
+			print(IAChoice)
 			board = morpionTurnManager(board, 'X', IAChoice)
 			#Appeler la fonction morpionPrintBoard(board)
 			morpionPrintBoard(board)
